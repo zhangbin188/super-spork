@@ -117,18 +117,17 @@ function stringify(arr, offset = 0) {
 
 function getvlConfig(myID, currentHost, pyHostPort) {
     const protocol = atob(atob('ZG14bGMzTT0='));
-    const path = `/pyIP=${pyHostPort}`;
+    const path = `/proxyIP=${pyHostPort}`;
     const params = new URLSearchParams({
         encryption: 'none',
-        network: 'ws',
-        type: 'none',
+        type: 'ws',
         host: currentHost,
         path: path,
     });
 
     const allVlUris = preferredDomains.map((domain, idx) => {
         const alias = `T-SNIP_${String(idx + 1).padStart(2, '0')}`;
-        return `${protocol}://${myID}@${domain}:8080?${params.toString()}#${alias}`;
+        return `${protocol}://${myID}@${domain}:80?${params.toString()}#${alias}`;
     });
 
     const sub = allVlUris.join('\n');
@@ -156,7 +155,7 @@ export default {
             const upgradeHeader = request.headers.get('Upgrade');
             if (!upgradeHeader || upgradeHeader !== 'websocket') {
                 if (url.pathname === '/') {
-                    return new Response('恭喜你成功', {
+                    return new Response('恭喜你', {
                         status: 200,
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     });
@@ -747,15 +746,14 @@ function getProxyConfig(uuid, currentHost, proxyHostPort) {
     const path = `/proxy=${proxyHostPort}`;
     const params = new URLSearchParams({
         encryption: 'none',
-        network: 'ws',
-        type: 'none',
+        type: 'ws',
         host: currentHost,
         path: path
     });
 
     return btoa(preferredDomains.map((domain, idx) => {
         const alias = `T-SNIP_${String(idx + 1).padStart(2, '0')}`;
-        return `${protocol}://${uuid}@${domain}:8080?${params.toString()}#${alias}`;
+        return `${protocol}://${uuid}@${domain}:80?${params.toString()}#${alias}`;
     }).join('\n')).replace(/\+/g, '-').replace(/\//g, '_');
 }
 
