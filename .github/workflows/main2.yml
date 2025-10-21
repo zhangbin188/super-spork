@@ -28,12 +28,12 @@ jobs:
             const fs = require('fs');
             const path = require('path');
             
-            const sourceFileName = '源码2';
+            const sourceFileName = '源码';
             const outputFileName = '少年1';
             const sourceFilePath = path.join(process.cwd(), sourceFileName);
 
             if (!fs.existsSync(sourceFilePath)) {
-              console.error('错误：在路径 \'' + sourceFilePath + '\' 未找到源文件。请确保您的仓库根目录有名为 \'源码2\' 的文件。');
+              console.error('错误：在路径 \'' + sourceFilePath + '\' 未找到源文件。请确保您的仓库根目录有名为 \'源码\' 的文件。');
               process.exit(1);
             }
 
