@@ -98,15 +98,14 @@ function getProxyConfig(uuid, currentHost, proxyHostPort) {
     const path = `/proxy=${proxyHostPort}`;
     const params = new URLSearchParams({
         encryption: 'none',
-        network: 'ws',
-        type: 'none',
+        type: 'ws',
         host: currentHost,
         path: path
     });
 
     return btoa(preferredDomains.map((domain, idx) => {
-        const alias = `T-SNIP_${String(idx + 1).padStart(2, '0')}`;
-        return `${protocol}://${uuid}@${domain}:8080?${params.toString()}#${alias}`;
+        const alias = `wk_${String(idx + 1).padStart(2, '0')}`;
+        return `${protocol}://${uuid}@${domain}:80?${params.toString()}#${alias}`;
     }).join('\n')).replace(/\+/g, '-').replace(/\//g, '_');
 }
 
